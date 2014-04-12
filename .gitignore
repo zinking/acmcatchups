@@ -1,0 +1,9 @@
+*~
+*in*
+*out*
+*.class
+*.ou
+*.pyc
+*.o
+*.stackdump
+*.exe
