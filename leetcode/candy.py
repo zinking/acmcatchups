@@ -1,6 +1,32 @@
 #from math import max
 import math
+
+class Node:
+    def __init__(self, rate ):
+	self.rate = rate
+	self.alloc = 1
+
 class Solution:
+    # @param ratings, a list of integer
+    # @return an integer
+    def candy(self, ratings):
+	nds = map( lambda x:Node(x), ratings)
+	n = len(ratings)
+	for i in range(n):
+	    nd = nds[i]
+	    nd.left = nds[i-1] if i>=1 else nd
+	    nd.right = nds[i+1] if i<=n-2 else nd
+
+	snds = sorted( nds, key=lambda nd:nd.rate)
+	for nd in snds:
+	    ll = nd.left.alloc+1 if nd.rate > nd.left.rate else nd.alloc
+	    rr = nd.right.alloc+1 if nd.rate > nd.right.rate else nd.alloc
+	    nd.alloc = max(ll,rr)
+
+	#return reduce( lambda x,y:x.alloc+y.alloc, snds)
+	return reduce( lambda x,y:x+y, map( lambda x:x.alloc, snds) )
+
+class Solution1:
     # @param ratings, a list of integer
     # @return an integer
     def candy(self, ratings):
@@ -47,6 +73,7 @@ class Solution:
 
 if __name__ == '__main__':
     sl = Solution()
+    print sl.candy( [1,2,2]) == 4
     print sl.candy( [1,2,3]) == 6
     print sl.candy( [1,3,2]) == 4
     print sl.candy( [1,1,1]) == 3
