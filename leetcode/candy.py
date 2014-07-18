@@ -78,3 +78,28 @@ if __name__ == '__main__':
     print sl.candy( [1,3,2]) == 4
     print sl.candy( [1,1,1]) == 3
     print sl.candy( [2,4,1,3]) == 6
+
+"""
+this problem has an extension, which is more difficult (**), which got me
+stuck so long on it.
+
+if we add the condition that, the sequence of the line can be
+re-arranged. then the result will be quite different.
+
+take line 1 , 2, 3, 4 for example.
+arrange 1 2 3 4 then at least 10 candies need to be allocated
+arrange 1 4 2 3 then 1 2 1 2 only 6 candies need to be callocated 
+arrange 1 4 3 2 then 1 3 2 1 7 candies need to be allocated.
+
+so seems interleaving them makes the minimum allocation
+1 2 1 2
+
+problem: is this always possible to interleaving them?
+egg:
+1 4 2 3
++ 5
+5 1 4 2 3
++6
+1 5 6 3 4 2
+seems always possible, how to prove that?
+"""
