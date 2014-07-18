@@ -102,4 +102,17 @@ egg:
 +6
 1 5 6 3 4 2
 seems always possible, how to prove that?
+
+proval:
+1 2 3 -> 3 1 2
+assume for 0....N it holds
+we can arrange it to 0'...N'
+
+for N+1
+assuming  N-1' > N'
+    if N+1 > N' then append N+1 after N' make it zigzag interleaving \/
+    if N+1 < N' then N-1' > N', so we can append N+1 and then swap N+1
+with N' make it interleaving. \/
+assuming  N-1' < N' similar scenario.
+
 """
