@@ -26,12 +26,18 @@ void fft( Ar& s ){
 
   for( int k=0; k<n/2; k++ ){
     C t = polar( 1.0, 2*k*PI/n ) * odd[k];
-    s[k+0]   = evn[k]+t;
-    s[k+n/2] = evn[k]-t;
+    s[k+0]   = evn[k]+t; 
+    s[k+n/2] = evn[k]-t; 
+    //although this looks odd and evn get mixed together
+    //it is because the nature of valarray, it is still of length N instead of N/2
+    //the negative is understood as W(N,N/2)=-1
   }
 
 };
 
+// consider fft as a matrix multiplication
+// then ifft is the reverse of a vandermont matrix
+// so the inverse is mathematically proved
 void ifft( Ar& s ){
   int n=s.size();
   s=s.apply( conj );
