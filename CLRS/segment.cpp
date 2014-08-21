@@ -87,19 +87,19 @@ struct EndPoint{
   EndPoint( const Vec2* pt, const Segment* sg, EPType tp ): p(pt),s(sg),type(tp){}
   
   static bool isLeftUp( const EndPoint* l, const EndPoint* r ){
-    return Vec2::isLeftUp( *(l->p), *(r->p) );
+    return !Vec2::isLeftUp( *(l->p), *(r->p) );
   }
 };
 
 bool scanLineTestSegmentsIntersection( const vector<Segment>& sg ){
   int n = sg.size();
-  vector<EndPoint*> endPoints(2*n);
+  vector<EndPoint*> endPoints;
   for( int i=0; i<n; i++ ){
     Segment s = sg[i];
     //I was intended to use the stackobject here
     //but the compiler wont let me
-    endPoints.push_back( new EndPoint( s.l, &s, EPType::Left ) );
-    endPoints.push_back( new EndPoint( s.r, &s, EPType::Right ) );
+    endPoints.push_back( &EndPoint( s.l, &s, EPType::Left ) );
+    endPoints.push_back( &EndPoint( s.r, &s, EPType::Right ) );
   }
   sort( endPoints.begin(), endPoints.end(), EndPoint::isLeftUp );
 
@@ -115,19 +115,29 @@ bool scanLineTestSegmentsIntersection( const vector<Segment>& sg ){
       auto itr = ret.first;
       auto pitr = prev(itr);
       if( pitr != segmentTree.end() ){
-        if( (**pitr).Intersect(**itr) ) return true;
+        Segment p = **pitr;
+        Segment n = **itr;
+        if( (p).Intersect(n) ) return true;
       }
       auto nitr = next(itr);
       if( nitr != segmentTree.end() ){
-        if( (**nitr).Intersect(**itr) ) return true;
+         Segment p = **itr;
+         Segment n = **nitr;
+         if( (p).Intersect(n) ) return true;
+
       }
     }
     else if ( ep.type == EPType::Right ){
       auto itr = segmentTree.find( ep.s );
+      if( itr == segmentTree.end() ){
+        printf("sth wrong finding \n");
+      }
       auto pitr = prev(itr);
       auto nitr = next(itr);
       if( pitr != segmentTree.end() && nitr != segmentTree.end() ){
-        if( (**pitr).Intersect(**nitr) ) return true;
+        Segment p = **pitr;
+        Segment n = **nitr;
+        if( p.Intersect(n) ) return true;
         segmentTree.erase(itr);
       }
     }
