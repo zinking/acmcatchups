@@ -30,8 +30,8 @@ def max_histogram( arr, n ):
 	
    
 if __name__=="__main__":
-    while( True ):
-	line = sys.stdin.readline()
+    lines = sys.stdin.readlines()
+    for line in lines:
 	ln = line.split(' ')
 	n = int( ln[0] )
 	if( n == 0): break;
