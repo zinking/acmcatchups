@@ -106,9 +106,10 @@ bool scanLineTestSegmentsIntersection( const vector<Segment>& sg ){
   set<const Segment*, bool(*)(const Segment*, const Segment*) > segmentTree(Segment::Above);
 
   for( int i=0; i<2*n; i++ ){
-    EndPoint ep = *(endPoints[i]);
-    if( ep.type == EPType::Left ){
-      auto ret = segmentTree.insert( (ep.s) );
+    //EndPoint ep = *(endPoints[i]);
+    EndPoint* ep = endPoints[i];
+    if( ep->type == EPType::Left ){
+      auto ret = segmentTree.insert( (ep->s) );
       if( ret.second == false ){
         printf("sth wrong\n");
       }
@@ -127,8 +128,8 @@ bool scanLineTestSegmentsIntersection( const vector<Segment>& sg ){
 
       }
     }
-    else if ( ep.type == EPType::Right ){
-      auto itr = segmentTree.find( ep.s );
+    else if ( ep->type == EPType::Right ){
+      auto itr = segmentTree.find( ep->s );
       if( itr == segmentTree.end() ){
         printf("sth wrong finding \n");
       }
