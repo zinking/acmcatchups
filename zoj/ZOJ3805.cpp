@@ -80,13 +80,16 @@ int main0(){
 int main(){
   int raw[10001];
   raw[0]=-1;
+  int eol=0;
   while( !cin.eof() ){
     int cnt = 0;
     cin >> cnt;
+    //cin >> eol;
     for( int i=1; i<cnt; i++ ){
       cin >> raw[i];
-      raw[i]--;
+      //raw[i]--;
     }
+    //cin >> eol;
     int result = minGridWidth(cnt,raw);
     printf("%d\n",result);
   }
