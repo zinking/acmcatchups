@@ -11,25 +11,14 @@ class Solution:
 	dictLen = len(L);
 	sentLen = wordLen*dictLen;
 
+	wordHash = [
+	    hash( S[i:i+wordLen] ) if S[i:i+wordLen] in L else 0
+	                            for i in xrange(bookLen-wordLen+1)]
+
 	hashDict = sum( [hash(w) for w in L] )
-	"""
-	paraHash = [
-	    sum([  hash(S[w:w+wordLen])
-	       for w in xrange(s,s+wordLen)] )
-                   for s in xrange(bookLen-sentLen+1)
-	]
-	"""
-
-	paraHash = [
-	    sum([  hash(S[w:w+wordLen])
-	       for w in xrange(s,s+sentLen-wordLen+1,wordLen)]) 
-                   for s in xrange(bookLen-sentLen+1)
-	]
-	#print paraHash
-	#print hashDict
-
+	
 	return [ i for i in xrange(bookLen-sentLen+1)
-		 if paraHash[i]==hashDict ]
+		 if sum(hashDict[0:dictLen])==hashDict ]
 	
 
 if __name__ == '__main__':
