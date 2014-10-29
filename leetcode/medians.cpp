@@ -9,13 +9,30 @@
 
 using namespace std;
 
-// {} {1,2,3}
-
 class Solution {
 public:
   
-  double findMedianSortedArray(int A[], int m){
+inline  double findMedianSortedArray(int A[], int m){
     return m&1 ? A[m/2] : double(A[m/2]+A[m/2-1])/2.0;
+  }
+
+  double findMedianSortedArrayBase2( int pA*, int m, int pB*, int n ){
+    // this is making time complexity o(nlogn) worst case
+    // when [ x y ] [ ... x1 x2 x3 x4 x5 ..] is combined 
+    // case 1:x x3 y , then median still x3
+    // case 2:x y x3 , then median become x2 
+
+    if( m > n ){
+      int tmp;
+      int* ptmp;
+      tmp = n, n=m, m=tmp;
+      ptmp = pB, pB=pA, pA= ptmp; 
+    }
+    // pA is the 2 element array
+    
+    
+
+
   }
   
   double findMedianSortedArrayBase(int A[], int m, int B[], int n ){
