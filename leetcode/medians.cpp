@@ -20,78 +20,93 @@ public:
     }
   }
   double findMedianSortedArrays(int A[], int m, int B[], int n) {
-
-    if( m==1 && n==0 ){
-      return A[0];
-    }
-    else if( m==0 && n==1 ){
-      return B[0];
-    }
-    else if( m==1 && n==1 ){
-      return double(A[0]+B[0])/2;
-    }
-    else if ( m==1 && n==2 ){
-      return B[0];
-    }
-    else if ( m==2 && n==1 ){
-      return A[1];
-    }
-    else if( m==0 ){
-      return findMedianSortedArrays( B, n/2, &B[n/2], n-n/2);
+    if( m==0 ){
+      return findMedianSortedArray(B,n);
     }
     else if( n==0 ){
-      return findMedianSortedArrays( A, m/2, &A[m/2], m-m/2);
+      return findMedianSortedArray(A,m); 
+    }
+    else if( m==1 && n==1 ){
+      return double(A[0]+B[0])/double(2.0);
     }
     else{
       int ma = A[m/2];
       int mb = B[n/2];
-      int ham = round( m/2.0f );
-      int hbn = round( n/2.0f );
-      if( ma >= mb ){
-        //5 6 7 8 => 7
-        //1 2 3 4 => 3
-        return findMedianSortedArrays( &B[n/2], n-hbn, A, ham );
+      int nn = fmin( round((float)n/2), round((float)m/2) );
+      if( ma > mb ){
+        return findMedianSortedArrays( B+nn,n-nn, A, m-nn);
       }
       else{
-        return findMedianSortedArrays( &A[m/2], m-ham, B, hbn);
+        //1   -> mid 0 midvalue 1
+        //2 3 -> mid 1 midvalue 3
+        // it must be combined to be 1 .... 3 and median between them
+        // so drop 1, 3 
+        return findMedianSortedArrays( A+nn,m-nn, B, n-nn );
       }
     }
   }
 };
+//{1,2} {3,4,5}
+
+void testcase( double expected, double actual ){
+  static int caseno = 0;
+  if( expected == actual ){
+    printf( "case %d SU\n", caseno );
+  }
+  else{
+    printf( "case %d FA -- Actual:%f Expected %f \n", caseno, actual, expected );
+  }
+  caseno++;
+}
 
 
 int main(){
   Solution s1;
+  double actual = -1;
   int A[4] = {5,6,7,8};
   int B[4] = {1,2,3,4};
-  printf("%g\n", s1.findMedianSortedArrays(A,4,B,4));
+  actual = s1.findMedianSortedArrays(A,4,B,4);
+  testcase( 4.5, actual );
 
   int AA[1] = {1};
   int BB[1] = {2};
-  printf("%g\n", s1.findMedianSortedArrays(AA,1,BB,1));
+  actual = s1.findMedianSortedArrays(AA,1,BB,1);
+  testcase( 1.5, actual );
 
   int AAA[0] = {};
   int BBB[1] = {1};
-  printf("%g\n", s1.findMedianSortedArrays(AAA,0,BBB,1));
+  actual = s1.findMedianSortedArrays(AAA,0,BBB,1);
+  testcase( 1, actual );
   
   int A1[0] = {};
   int B1[3] = {1,2,3};
-  printf("%g\n", s1.findMedianSortedArrays(A1,0,B1,3));
+  actual = s1.findMedianSortedArrays(A1,0,B1,3);
+  testcase( 2, actual );
   
   int A2[0] = {};
   int B2[5] = {1,2,3,4,5};
-  printf("%g\n", s1.findMedianSortedArrays(A2,0,B2,5));
+  actual = s1.findMedianSortedArrays(A2,0,B2,5);
+  testcase( 3, actual );
 
+  
   int A3[2] = {1,2};
   int B3[3] = {3,4,5};
 
-  printf("%g\n", s1.findMedianSortedArrays(A3,2,B3,3));
+  actual = s1.findMedianSortedArrays(A3,2,B3,3);
+  testcase( 3, actual );
   
 
   int A4[3] = {1,2,3};
   int B4[3] = {4,5,6};
 
-  printf("%g\n", s1.findMedianSortedArrays(A4,3,B4,3));
+  actual = s1.findMedianSortedArrays(A4,3,B4,3);
+  testcase( 3.5, actual );
+
+  int A5[3] = {1,2,3};
+  int B5[3] = {1,2,2};
+
+  actual = s1.findMedianSortedArrays(A5,3,B5,3);
+  testcase(2,actual);
 
   return 0;
 }
