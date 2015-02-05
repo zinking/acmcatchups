@@ -40,9 +40,14 @@ void fft( Ar& s ){
 // so the inverse is mathematically proved
 void ifft( Ar& s ){
   int n=s.size();
-  s=s.apply( conj );
+  s=s.apply( conj ); 
+  // c = p * M^-1 . where M is vandermont matrix
+  // as Mn(w)^-1 = 1/n*Mn(w^-1)
+  // this w^-1 could be separated into w(n,n/2) and w. the former could be extracted and applied on p as conjugate
+  // TBP
+
   fft(s);
-  s=s.apply( conj );
+  s=s.apply( conj ); //this conjugation means nothing as we are using real part. to be confirmed
   s/=n;
 }
 

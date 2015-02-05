@@ -1,4 +1,4 @@
-#!/usr/bing/python
+#!/usr/bin/python
 
 
 class Solution:
@@ -10,15 +10,12 @@ class Solution:
 	wordLen = len(L[0]);
 	dictLen = len(L);
 	sentLen = wordLen*dictLen;
-
 	wordHash = [
 	    hash( S[i:i+wordLen] ) if S[i:i+wordLen] in L else 0
 	                            for i in xrange(bookLen-wordLen+1)]
-
 	hashDict = sum( [hash(w) for w in L] )
-	
 	return [ i for i in xrange(bookLen-sentLen+1)
-		 if sum(hashDict[0:dictLen])==hashDict ]
+		 if sum(wordHash[i:i+sentLen:wordLen])==hashDict ]
 	
 
 if __name__ == '__main__':
