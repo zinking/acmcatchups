@@ -1,0 +1,39 @@
+* Awesome pyton challenges
+
+** python challenges http://www.pythonchallenge.com/ [intermediate]
+- https://github.com/zinking/acmcatchups/blob/master/pychallenge/PyChallenge3.py
+- https://github.com/zinking/acmcatchups/blob/master/pychallenge/PyChallenge4.py
+- https://github.com/zinking/acmcatchups/blob/master/pychallenge/PyChallenge5.py
+-- mine above
+- http://holger.thoelking.name/python-challenge/ solutions to all problems
+  
+
+** basics [Beginner]
+
+-1 print variable length head banner like this:
+...........
+..::mes::..
+...........
+
+the problem is the name would vary, like this:
+`Alexander George`
+`Mesos Phoneix`
+
+your task is to make the banner fit the names, like:
+...................
+..:: Alexander ::..
+...................
+
+-2 converting color representations:
+a color red could be represented using either rgb(255,0,0) or #FF0000 hex form
+wirte a program to convert the RGB color to hex form.
+Bonus: write the program as short as possibl
+
+
+
+
+
+  
+
+  
+
