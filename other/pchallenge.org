@@ -27,8 +27,151 @@ your task is to make the banner fit the names, like:
 -2 converting color representations:
 a color red could be represented using either rgb(255,0,0) or #FF0000 hex form
 wirte a program to convert the RGB color to hex form.
-Bonus: write the program as short as possibl
+Bonus: write the program as short as possible
 
+
+-3 generate random strong password:
+strong passwords have a mix of lowercase letters, uppercase letters, numbers, and symbols. 
+The passwords should be random, generating a new password every time the user asks for a new password.
+
+>Solution
+
+    import random
+    s = "abcdefghijklmnopqrstuvwxyz01234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()?"
+    print "".join(random.sample(s,8))
+    
+>Follow Up
+    1. is it guaranteed to be strong?
+    2. could it be shorter?
+
+
+-4 nth fibonacci
+given number `n`, generate the nth fibonacci number. 
+egg: 
+1. input 1 output 1
+2. input 2 output 1
+3. input 3 output 2 etc....
+
+Hint: 
+1. write as less code as possible
+2. us as less memory as possible 
+3. use as less cpu as possible
+
+> Solution:
+
+    def fib(n):
+        if n==1 or n==2 return 1
+        return fib(n-1)+fib(n-2)
+
+> Follow up:
+    1. could it be shorter? 
+    2. could it use less memory/cpu ?
+       
+> Solution 2:
+    from math import sqrt
+    def fib(n):
+        return ((1+sqrt(5))**n-(1-sqrt(5))**n)/(2**n*sqrt(5))
+        
+> Solution 3:
+    def F():
+      a,b = 0,1
+      yield a
+      yield b
+      while True:
+          a, b = b, a + b
+          yield b
+    >>> f = F()
+    >>> f.next()
+    >>> f.next()
+
+> Follow up: 
+    1. is there other way to write fibonacci series ?
+    2. write your own, and explain your solution.
+
+
+-5 reverse sentence
+give a sentence "I want an apple", reverse it to "apple an want I"
+
+> Solution:
+
+    def reverse(s):
+        ss = s.split(" ")
+        ss.revers()
+        return ss
+
+
+
+-6 norvig's spelling corrector (*****) 
+-- my favorite, absolutely worth your time to fully understand
+-- [norvig's spell corrector][http://norvig.com/spell-correct.html]
+
+import re, collections
+
+def words(text): return re.findall('[a-z]+', text.lower()) 
+
+def train(features):
+    model = collections.defaultdict(lambda: 1)
+    for f in features:
+        model[f] += 1
+    return model
+
+NWORDS = train(words(file('big.txt').read()))
+
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+def edits1(word):
+   splits     = [(word[:i], word[i:]) for i in range(len(word) + 1)]
+   deletes    = [a + b[1:] for a, b in splits if b]
+   transposes = [a + b[1] + b[0] + b[2:] for a, b in splits if len(b)>1]
+   replaces   = [a + c + b[1:] for a, b in splits for c in alphabet if b]
+   inserts    = [a + c + b     for a, b in splits for c in alphabet]
+   return set(deletes + transposes + replaces + inserts)
+
+def known_edits2(word):
+    return set(e2 for e1 in edits1(word) for e2 in edits1(e1) if e2 in NWORDS)
+
+def known(words): return set(w for w in words if w in NWORDS)
+
+def correct(word):
+    candidates = known([word]) or known(edits1(word)) or known_edits2(word) or [word]
+    return max(candidates, key=NWORDS.get)
+
+
+for spelling correcting, there's no way for sure you know author's intention.
+the target is always: for a given original word `w`, find a correction `c` 
+which is most likely to be what is intended. 
+
+Math model, Bayesian theory 
+    max P(c|w) for all possible c
+=> 
+    max P(w|c) * P(c) / P(w)
+    P(w) is the same for all `c` as it is given
+=> 
+    max p(w|c) * p(c)
+    p(c) the language model: think of it as "how likely is `c` going to appear in english language?
+    p(w|c) the error model : think of it as "how likely it is that I inteded for c, but typed `w` ?
+
+big.txt gives you the language model: consits of about a million words from [wiki] [BNC] and other books
+edits/edits2 gives you the error model: how likely is a word being misspelled
+all known words of edit distance 1 are infinitely more probable than know words of edit distance2
+
+
+-7 new year count down problem
+    10 ? 9 ? 8 ? 7 ? 6 ? 5 ? 4 ? 3 ? 2 ? 1 = 2017
+ you can only fill in + - * / in the ?, brackets as allowed as you need it. 
+
+> Solution 
+  # 4^9 is small enough, so let's numerate them all. 
+  for a in ops:
+      for b in ops: 
+          ...
+          expr = "10 + 9 +..."
+          if eval(expr) == 2017:
+
+> Follow up
+  1. what about other years ?
+  2. what about using brackets ?
+  
 
 
 
