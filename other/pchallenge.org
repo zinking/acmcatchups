@@ -49,6 +49,7 @@ The passwords should be random, generating a new password every time the user as
 given number `n`, generate the nth fibonacci number. 
 egg: 
 1. input 1 output 1
+   
 2. input 2 output 1
 3. input 3 output 2 etc....
 
@@ -172,9 +173,6 @@ all known words of edit distance 1 are infinitely more probable than know words 
   1. what about other years ?
   2. what about using brackets ?
   
-
-
-
 
   
 
