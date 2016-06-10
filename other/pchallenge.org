@@ -1,12 +1,16 @@
 * Awesome pyton challenges
   
-** python challenges http://www.pythonchallenge.com/ [intermediate]
-- https://github.com/zinking/acmcatchups/blob/master/pychallenge/PyChallenge3.py
+** [[http://www.pythonchallenge.com/][Python challenge : intermediate]]
+- [[https://github.com/zinking/acmcatchups/blob/master/pychallenge/PyChallenge3.py][Challenge 3]]
 - https://github.com/zinking/acmcatchups/blob/master/pychallenge/PyChallenge4.py
 - https://github.com/zinking/acmcatchups/blob/master/pychallenge/PyChallenge5.py
 -- mine above
 - http://holger.thoelking.name/python-challenge/ solutions to all problems
   
+----- 
+
+- [X] checked
+
 
 ** basics [Beginner]
 
@@ -35,10 +39,12 @@ strong passwords have a mix of lowercase letters, uppercase letters, numbers, an
 The passwords should be random, generating a new password every time the user asks for a new password.
 
 >Solution
-
+#+BEGIN_SRC python
     import random
     s = "abcdefghijklmnopqrstuvwxyz01234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()?"
     print "".join(random.sample(s,8))
+#-END_SRC
+
     
 >Follow Up
     1. is it guaranteed to be strong?
